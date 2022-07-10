@@ -1,0 +1,30 @@
+.wrapper {
+  background: #e6e6e6;
+  border-radius: 10px;
+  padding: 1em;
+  box-shadow: 1px 2px 2px rgba(0, 0, 0, 0.2);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.wrapper:hover {
+  box-shadow: 1px 5px 2px rgba(0, 0, 0, 0.4);
+  transform: translate(0, -1px);
+}
+
+.close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  cursor: pointer;
+  border: none;
+  background: none;
+  color: white;
+  background: #555;
+  padding: 0.2em;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+}

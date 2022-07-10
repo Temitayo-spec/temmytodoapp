@@ -1,0 +1,280 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+a {
+  text-decoration: none;
+  color: #000;
+}
+
+p {
+  line-height: 1.7;
+}
+
+ul {
+  list-style: none;
+  display: flex;
+  align-items: center;
+}
+
+li {
+  line-height: 2.2;
+}
+
+li a img {
+  margin-right: 5px;
+}
+
+h1,
+h2,
+h3 {
+  font-weight: 400;
+  display: inline-flex;
+  align-items: center;
+  margin: 0 auto;
+  width: auto;
+}
+
+.wrapper {
+  background: #f2f2f2;
+}
+
+.container {
+  width: 100%;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 2em;
+  width: 90%;
+  margin: 0 auto;
+}
+
+.header ul li {
+  margin-left: 20px;
+}
+
+.header ul li a {
+  display: flex;
+  align-items: center;
+  font-weight: 600;
+}
+
+.header ul li a:hover {
+  color: #777;
+}
+
+.header ul li a svg {
+  margin-right: 5px;
+}
+
+.heading {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 50px;
+  padding: 0 20px;
+}
+
+.heading p {
+  color: #828282;
+}
+
+.goals {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.form,
+.content {
+  width: 50%;
+  margin: 0 auto 1em;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+  padding: 2em;
+  border-radius: 10px;
+  animation: fadeIn 0.5s ease;
+}
+
+.form-group {
+  margin-bottom: 10px;
+  width: 100%;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+  width: 100%;
+  padding: 1em;
+  border: 1px solid #e6e6e6;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.form-group label {
+  text-align: left;
+  display: block;
+  margin: 0 0 5px 3px;
+}
+
+.logout_btn {
+  padding: 10px 20px;
+  border: 1px solid #000;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: center;
+  appearance: button;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logout_btn:hover {
+  background: #000;
+  color: white;
+}
+
+.back_btn {
+  padding: 10px 20px;
+  border: 1px solid #000;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: center;
+  appearance: button;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 1em;
+  margin-top: 1em;
+}
+
+.back_btn:hover {
+  background: #000;
+  color: white;
+}
+
+.back_btn span {
+  margin-left: 5px;
+}
+
+.btn {
+  padding: 10px 20px;
+  border: 1px solid #000;
+  border-radius: 5px;
+  background: #000;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  text-align: center;
+  appearance: button;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.btn-reverse {
+  background: #fff;
+  color: #000;
+}
+
+.btn-block {
+  width: 100%;
+}
+
+.btn:hover {
+  transform: scale(0.98);
+}
+
+.loadingSpinnerContainer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 5000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loadingSpinner {
+  width: 64px;
+  height: 64px;
+  border: 8px solid;
+  border-color: #000 transparent #555 transparent;
+  border-radius: 50%;
+  animation: spin 1.2s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 600px) {
+  .header {
+    display: flex;
+    justify-content: space-between;
+    padding: 1em 0;
+  }
+
+  .form,
+  .content {
+    padding: 1em;
+    width: 90%;
+  }
+
+  .heading h1 {
+    font-size: 2rem;
+  }
+
+  .heading p {
+    font-size: 1.5rem;
+  }
+
+  .goals {
+    grid-template-columns: 1fr;
+    width: 100%;
+  }
+
+  .goal {
+    width: 100%;
+  }
+
+  li a,
+  li button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  li span,
+  li button span {
+    font-size: 13px;
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

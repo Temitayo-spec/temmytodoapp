@@ -1,0 +1,51 @@
+.wrapper {
+  position: fixed;
+  bottom: 5%;
+  left: 10%;
+  animation: popup forwards 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  z-index: 4000;
+}
+
+.inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgb(39, 201, 39);
+  width: auto;
+  padding: 0.5em;
+  border-radius: 10px;
+  color: whitesmoke;
+}
+
+.error {
+  background: rgb(230, 69, 69);
+}
+
+.message h3 {
+  font-size: 18px;
+  font-weight: 500;
+}
+
+@keyframes popup {
+  0% {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@media (max-width: 768px) {
+  .wrapper {
+    left: 0;
+    width: 100%;
+  }
+
+  .inner {
+    position: relative;
+    width: 90%;
+    margin: 0 auto;
+  }
+}
