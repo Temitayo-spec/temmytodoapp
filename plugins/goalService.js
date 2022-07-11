@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:5000/api/goals/";
+const API_URL = "https://temmygoalsetterapp.herokuapp.com/api/goals/";
 //Get goals
 const getGoals = async (token) => {
   const response = await axios.get(API_URL, {
