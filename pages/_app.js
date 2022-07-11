@@ -17,7 +17,7 @@ function MyApp({ Component, pageProps }) {
     <Provider store={store}>
       <>
         {!loading ? (
-          <React.Fragment>
+          <>
             <NextNProgress
               startPosition={0.2}
               stopDelayMs={200}
@@ -29,7 +29,7 @@ function MyApp({ Component, pageProps }) {
             />
             <Header />
             <Component {...pageProps} />
-          </React.Fragment>
+          </>
         ) : (
           <LoadingScreen />
         )}

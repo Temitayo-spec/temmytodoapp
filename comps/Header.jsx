@@ -2,14 +2,16 @@ import Link from "next/link";
 import { useSelector, useDispatch } from "react-redux";
 import { logout, reset } from "../store/auth";
 import { FaSignInAlt, FaSignOutAlt, FaUser } from "react-icons/fa";
+import { useRouter } from "next/router";
 
 const Header = () => {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
+  const router = useRouter
   const onLogout = () => {
     dispatch(logout());
     dispatch(reset());
-    window.location.pathname = "/";
+    router.pathname = "/";
   };
   return (
     <div className="wrapper">
