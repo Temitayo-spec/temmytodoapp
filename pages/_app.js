@@ -1,13 +1,39 @@
-import { Provider } from 'react-redux';
-import Header from '../comps/Header';
-import store from '../store';
-import '../styles/globals.css'
+import { Provider } from "react-redux";
+import React from "react";
+import Header from "../comps/Header";
+import store from "../store";
+import "../styles/globals.css";
+import NextNProgress from "nextjs-progressbar";
+import { useEffect, useState } from "react";
+import LoadingScreen from "../comps/LoadingScreen";
 
 function MyApp({ Component, pageProps }) {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => setLoading(false), 3000);
+  }, []);
   return (
     <Provider store={store}>
-      <Header />
-      <Component {...pageProps} />
+      <>
+        {!loading ? (
+          <React.Fragment>
+            <NextNProgress
+              startPosition={0.2}
+              stopDelayMs={200}
+              height={3}
+              color="#000"
+              showSpinner={false}
+              // render={(progressBarProps, ref) => (
+              //   <div ref={ref} style={{ position: "fixed", zIndex: 1 }}>
+            />
+            <Header />
+            <Component {...pageProps} />
+          </React.Fragment>
+        ) : (
+          <LoadingScreen />
+        )}
+      </>
     </Provider>
   );
 }
