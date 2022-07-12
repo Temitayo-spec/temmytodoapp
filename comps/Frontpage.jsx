@@ -6,12 +6,19 @@ const Frontpage = () => {
     <div className={styles.wrapper}>
       <div className={styles.inner}>
         <h1>
-          Goal <span>Setter</span>
+          Todo <span>App</span>
         </h1>
         <p>
-          This is a simple app to help you set goals and track your progress.
+          An easy todo app that you can use to manage your tasks.
+          <br />
+          <br />
+          <Link href="/todo">
+            <a>
+              <button>Start</button>
+            </a>
+          </Link>
         </p>
-        <p>You can login or register to get started.</p>
+        <p>You can login to see the todo app in action.</p>
 
         <div className={styles.button_ctn}>
           <Link href="/login">
