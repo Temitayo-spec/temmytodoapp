@@ -1,0 +1,136 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #fff;
+  padding: 2em;
+  border-radius: 1.2em;
+  width: 100%;
+  animation: zoomIn 0.5s cubic-bezier(0.47, 0, 0.745, 0.715);
+}
+
+.profile_picture_ctn {
+  width: 90%;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+}
+
+.profile_picture_overlay {
+    margin-left: 2.3em;
+}
+
+.profile_picture_ctn img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 1px solid hsl(237, 18%, 59%);
+  object-fit: cover;
+}
+
+.profile_picture_overlay_text h1 {
+  font-size: 2.5em;
+  color: hsl(237, 18%, 59%);
+  margin: 0;
+}
+
+.profile_picture_overlay_text p {
+  font-size: 1.2em;
+  line-height: 1.5;
+  color: hsl(237, 18%, 59%);
+}
+
+.profile_picture_overlay_text input {
+  display: none;
+}
+
+.upload {
+  background: linear-gradient(120deg, #f6d365 0%, #fda085 100%);
+  border: none;
+  border-radius: 0.5em;
+  color: #fff;
+  cursor: pointer;
+  font-size: 1.2em;
+  font-weight: bold;
+  padding: 0.5em 1em;
+  text-transform: uppercase;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 0.5em 1em rgba(0, 0, 0, 0.2);
+  margin: 0.5em;
+}
+
+.upload:hover {
+  background: linear-gradient(120deg, #dfc880 0%, #fda085 100%);
+  color: #fff;
+}
+
+.reset {
+  background: hsl(237, 18%, 59%);
+  border: none;
+  border-radius: 0.5em;
+  color: #fff;
+  cursor: pointer;
+  font-size: 1.2em;
+  font-weight: bold;
+  padding: 0.5em 1em;
+  text-transform: uppercase;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 0.5em 1em rgba(0, 0, 0, 0.2);
+  margin: 0.5em;
+}
+
+.reset:hover {
+  background: hsl(236, 21%, 26%);
+  color: #fff;
+}
+
+.btn_ctn {
+  width: auto;
+  margin: 2em auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.back {
+  background: hsl(234, 17%, 12%);
+  border: none;
+  border-radius: 0.5em;
+  color: #fff;
+  cursor: pointer;
+  font-size: 1.2em;
+  font-weight: bold;
+  padding: 0.5em 1em;
+  text-transform: uppercase;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 0.5em 1em rgba(0, 0, 0, 0.2);
+  margin: 0.5em;
+}
+
+.submit {
+  display: flex;
+  align-items: center;
+  border: none;
+  border-radius: 0.5em;
+  color: #fff;
+  cursor: pointer;
+  font-size: 1.2em;
+  font-weight: bold;
+  padding: 0.5em 1em;
+  text-transform: uppercase;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 0.5em 1em rgba(0, 0, 0, 0.2);
+  margin: 0.5em;
+  background: linear-gradient(120deg, #f6d365 0%, #fda085 100%);
+}
+
+@keyframes zoomIn {
+  from {
+    transform: scale(0);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}

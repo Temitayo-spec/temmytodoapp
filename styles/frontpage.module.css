@@ -1,35 +1,55 @@
 .wrapper {
   width: 100vw;
-  height: 60vh;
+  height: 100vh;
   animation: slideIn forwards 1s ease-in-out;
   position: relative;
   z-index: 1;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  background: linear-gradient(120deg, #f6d365 0%, #fda085 100%);
+}
+.inner {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2em;
+  width: 90%;
+  margin: 0 auto;
+  height: 100%;
+  place-items: center;
 }
 
-.inner h1 {
-  font-size: 2em;
-  font-weight: bold;
-  text-align: center;
-  margin: 0;
-  padding: 0;
-  color: rgb(37, 34, 34);
+.lhs {
+  text-align: left;
+  height: 50%;
 }
 
-.inner p {
+.lhs h1 {
+  color: #fff;
+  font-size: 2.5em;
+  margin: 0.5em 0;
+  font-weight: 600;
+}
+
+.lhs p {
   font-size: 1.2em;
   text-align: center;
-  margin: 0;
-  padding: 0;
-  color: rgb(99, 93, 93);
+  color: #fff;
 }
 
-.inner h1 span {
-  color: rgb(37, 34, 34);
+.lhs h1 span {
+  color: #fda085;
+  margin-left: 0.2em;
+}
+
+.lhs h1 span:hover {
+  color: #f6d365;
+  text-decoration: line-through solid #fff;
+}
+
+.rhs img{
+  width: 100%;
+  object-fit: cover;
 }
 
 .button_ctn {
@@ -44,19 +64,19 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: black;
+  background-color: #fda085;
   color: #fff;
   font-size: 1.5em;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   padding: 0.5em 1em;
-  margin: 0.5em;
 }
 
 .button:hover {
-  background-color: rgb(99, 93, 93);
+  background-color: #f6d365;
   transition: all 0.5s ease-in-out;
+  box-shadow: 0 0.5em 1em rgba(0, 0, 0, 0.2);
 }
 
 @keyframes slideIn {

@@ -17,12 +17,28 @@ const loadState = () => {
 
 loadState();
 
+// Get user from backend
+export const getUser = createAsyncThunk("auth/me", async (_, thunkAPI) => {
+  try {
+    token = thunkAPI.getState().auth.token;
+    const response = await authService.getUser(token);
+    return response.data;
+  } catch (error) {
+    const message =
+      (error.response && error.response.data && error.response.data.message) ||
+      error.message ||
+      error.toString();
+
+    return thunkAPI.rejectWithValue(message);
+  }
+});
+
 // Register user
-export const register = createAsyncThunk(
+export const signup = createAsyncThunk(
   "auth/register",
   async (user, thunkAPI) => {
     try {
-      return await authService.register(user);
+      return await authService.registerUser(user);
     } catch (error) {
       const message =
         (error.response &&
@@ -37,23 +53,18 @@ export const register = createAsyncThunk(
 );
 
 // Login user
-export const login = createAsyncThunk(
-  "auth/login",
-  async (user, thunkAPI) => {
-    try {
-      return await authService.login(user);
-    } catch (error) {
-      const message =
-        (error.response &&
-          error.response.data &&
-          error.response.data.message) ||
-        error.message ||
-        error.toString();
+export const login = createAsyncThunk("auth/login", async (user, thunkAPI) => {
+  try {
+    return await authService.login(user);
+  } catch (error) {
+    const message =
+      (error.response && error.response.data && error.response.data.message) ||
+      error.message ||
+      error.toString();
 
-      return thunkAPI.rejectWithValue(message);
-    }
+    return thunkAPI.rejectWithValue(message);
   }
-);
+});
 
 export const logout = createAsyncThunk("auth/logout", async () => {
   await authService.logout();
@@ -67,6 +78,10 @@ export const authSlice = createSlice({
     isSuccess: false,
     isLoading: false,
     message: "",
+    image:
+      "https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
+    imageSrc: "",
+    newUser: {},
   },
   reducers: {
     reset: (state) => {
@@ -75,18 +90,27 @@ export const authSlice = createSlice({
       state.isSuccess = false;
       state.message = "";
     },
+    setImage: (state, action) => {
+      state.image = action.payload;
+    },
+    setImageSrc: (state, action) => {
+      state.imageSrc = action.payload;
+    },
+    setNewUser: (state, action) => {
+      state.newUser[action.payload.field] = action.payload.value;
+    },
   },
   extraReducers: (builder) => {
     builder
-      .addCase(register.pending, (state) => {
+      .addCase(signup.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(register.fulfilled, (state, action) => {
+      .addCase(signup.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
         state.user = action.payload;
       })
-      .addCase(register.rejected, (state, action) => {
+      .addCase(signup.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;
@@ -119,5 +143,7 @@ export const {
   isError,
   message,
 } = (state) => state.auth;
-export const { reset } = authSlice.actions;
+export const selectImage = (state) => state.auth.image;
+export const selectImageSrc = (state) => state.auth.imageSrc;
+export const { reset, setImage, setImageSrc, setNewUser } = authSlice.actions;
 export const authReducer = authSlice.reducer;

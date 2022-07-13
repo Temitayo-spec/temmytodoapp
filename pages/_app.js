@@ -1,6 +1,5 @@
 import { Provider } from "react-redux";
 import React from "react";
-import Header from "../comps/Header";
 import store from "../store";
 import "../styles/globals.css";
 import NextNProgress from "nextjs-progressbar";
@@ -11,7 +10,8 @@ function MyApp({ Component, pageProps }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    setTimeout(() => setLoading(false), 3000);
+    // setTimeout(() => setLoading(false), 3000);
+    setLoading(false);
   }, []);
   return (
     <Provider store={store}>
@@ -27,7 +27,6 @@ function MyApp({ Component, pageProps }) {
               // render={(progressBarProps, ref) => (
               //   <div ref={ref} style={{ position: "fixed", zIndex: 1 }}>
             />
-            <Header />
             <Component {...pageProps} />
           </>
         ) : (

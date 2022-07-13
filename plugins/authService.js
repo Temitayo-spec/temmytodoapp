@@ -1,10 +1,10 @@
 import axios from "axios";
 
-const API_URL = "https://temmygoalsetterapp.herokuapp.com/api/users/";
+const API_URL = "https://temmytodoapp.herokuapp.com/api/auth/";
 
 //Register user
 const register = async (userData) => {
-  const response = await axios.post(API_URL, userData);
+  const response = await axios.post(API_URL + "register", userData);
 
   if (response.data) {
     localStorage.setItem("user", JSON.stringify(response.data));
@@ -14,7 +14,6 @@ const register = async (userData) => {
 };
 
 //Register user
-
 const login = async (userData) => {
   const response = await axios.post(API_URL + "login", userData);
 
@@ -30,10 +29,21 @@ const logout = () => {
   localStorage.removeItem("user");
 };
 
+// Get user
+const getUser = async (token) => {
+  const response = await axios.get(API_URL + "me", {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return response;
+};
+
 const authService = {
-  register,
+  registerUser: register,
   logout,
-  login
+  login,
+  getUser,
 };
 
 export default authService;
