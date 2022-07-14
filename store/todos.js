@@ -1,21 +1,21 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import goalService from "../plugins/goalService";
+import todoService from "../plugins/todoService";
 
 const initialState = {
-  goals: [],
+  todos: [],
   isLoading: false,
   isError: false,
   isSuccess: false,
   message: "",
 };
 
-// Create new goal
-export const createGoal = createAsyncThunk(
-  "goals/create",
-  async (goalData, thunkAPI) => {
+// Create new Todo
+export const createTodo = createAsyncThunk(
+  "todos/create",
+  async (todoData, thunkAPI) => {
     try {
       const token = thunkAPI.getState().auth.user.token;
-      return await goalService.createGoal(goalData, token);
+      return await todoService.createTodo(todoData, token);
     } catch (error) {
       const message =
         (error.response &&
@@ -29,12 +29,13 @@ export const createGoal = createAsyncThunk(
   }
 );
 
-export const getGoals = createAsyncThunk(
-  "goals/getAll",
+// Get All Todos
+export const getTodos = createAsyncThunk(
+  "todos/getAll",
   async (_, thunkAPI) => {
     try {
       const token = thunkAPI.getState().auth.user.token;
-      return await goalService.getGoals(token);
+      return await todoService.getTodos(token);
     } catch (error) {
       const message =
         (error.response &&
@@ -47,12 +48,15 @@ export const getGoals = createAsyncThunk(
     }
   }
 );
-export const deleteGoal = createAsyncThunk(
-  "goals/delete",
+
+
+// Delete a todo
+export const deleteTodo = createAsyncThunk(
+  "todos/delete",
   async (id, thunkAPI) => {
     try {
       const token = thunkAPI.getState().auth.user.token;
-      return await goalService.deleteGoal(id, token);
+      return await todoService.deleteTodo(id, token);
     } catch (error) {
       const message =
         (error.response &&
@@ -65,12 +69,14 @@ export const deleteGoal = createAsyncThunk(
     }
   }
 );
-export const updateGoals = createAsyncThunk(
-  "goals/update",
-  async ({ goalId, text }, thunkAPI) => {
+
+// Update a todo
+export const updateTodo = createAsyncThunk(
+  "todos/update",
+  async ({ todoId, text, image }, thunkAPI) => {
     try {
       const token = thunkAPI.getState().auth.user.token;
-      return await goalService.updateGoal({ goalId, text }, token);
+      return await todoService.updateTodo({ todoId, text, image }, token);
     } catch (error) {
       const message =
         (error.response &&
@@ -84,10 +90,30 @@ export const updateGoals = createAsyncThunk(
   }
 );
 
-export const goalSlice = createSlice({
-  name: "goal",
+// Get Completed Todos
+export const getCompletedTodos = createAsyncThunk(
+  "todos/getCompleted",
+  async (_, thunkAPI) => {
+    try {
+      const token = thunkAPI.getState().auth.user.token;
+      return await todoService.getCompletedTodos(token);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
+export const todoSlice = createSlice({
+  name: "todo",
   initialState: {
-    goals: [],
+    todos: [],
     isLoading: false,
     isError: false,
     isSuccess: false,
@@ -104,56 +130,56 @@ export const goalSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(createGoal.pending, (state) => {
+      .addCase(createTodo.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(createGoal.fulfilled, (state, action) => {
+      .addCase(createTodo.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
-        state.goals.push(action.payload);
+        state.todos.push(action.payload);
       })
-      .addCase(createGoal.rejected, (state, action) => {
+      .addCase(createTodo.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;
       })
-      .addCase(getGoals.pending, (state) => {
+      .addCase(getTodos.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(getGoals.fulfilled, (state, action) => {
+      .addCase(getTodos.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
-        state.goals = action.payload;
+        state.todos = action.payload;
       })
-      .addCase(getGoals.rejected, (state, action) => {
+      .addCase(getTodos.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;
       })
-      .addCase(deleteGoal.pending, (state) => {
+      .addCase(deleteTodo.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(deleteGoal.fulfilled, (state, action) => {
+      .addCase(deleteTodo.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
-        state.goals = state.goals.filter(
-          (goal) => goal._id !== action.payload.id
+        state.todos = state.todos.filter(
+          (todo) => todo._id !== action.payload.id
         );
       })
-      .addCase(deleteGoal.rejected, (state, action) => {
+      .addCase(deleteTodo.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;
       })
-      .addCase(updateGoals.pending, (state) => {
+      .addCase(updateTodo.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(updateGoals.fulfilled, (state, action) => {
+      .addCase(updateTodo.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
-        state.goals = action.payload;
+        state.todos = action.payload;
       })
-      .addCase(updateGoals.rejected, (state, action) => {
+      .addCase(updateTodo.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;
@@ -161,5 +187,5 @@ export const goalSlice = createSlice({
   },
 });
 
-export const { reset, setId } = goalSlice.actions;
-export const goalReducer = goalSlice.reducer;
+export const { reset, setId } = todoSlice.actions;
+export const todoReducer = todoSlice.reducer;

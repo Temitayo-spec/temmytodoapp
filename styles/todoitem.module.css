@@ -1,0 +1,84 @@
+.wrapper {
+  border-bottom: 1px solid rgb(71, 71, 71);
+  margin: 0.2em 0;
+}
+
+.dropDown {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.3em;
+  cursor: pointer;
+}
+
+.small_circle_ctn {
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.small_circle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 5px;
+}
+.todo_item_text {
+  margin-left: 0.5em;
+}
+
+.todo_item_text p {
+  color: rgb(177, 174, 174);
+  font-weight: 400;
+  font-size: 0.8em;
+}
+
+.day {
+  margin-left: auto;
+  font-size: 1rem;
+  font-weight: 400;
+  color: rgb(128, 126, 126);
+}
+
+.dropBox {
+  margin-bottom: 0.3em;
+  transition: all 0.6s ease;
+  height: 0;
+  overflow: hidden;
+}
+
+.completed_btn {
+  padding: 0.5em 0.9em;
+  display: inline-block;
+  margin-right: 5px;
+  border: 2px solid #f6d365;
+  border-radius: 20px;
+  color: white;
+  background: transparent;
+  cursor: pointer;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+  font-weight: 700;
+}
+
+.update_todo {
+  padding: 0.5em 0.9em;
+  display: inline-block;
+  margin-left: 5px;
+  border: 2px solid #f6d365;
+  border-radius: 20px;
+  color: white;
+  background: linear-gradient(120deg, #f6d365 0%, #fda085 100%);
+  cursor: pointer;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+  font-weight: 700;
+}
+
+.show {
+  height: 100%;
+  transition: all 0.6s ease;
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.3em;
+  margin-left: 2.2em;
+  cursor: pointer;
+}

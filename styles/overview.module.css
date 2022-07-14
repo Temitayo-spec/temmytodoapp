@@ -1,0 +1,41 @@
+.main {
+  background: hsl(236, 21%, 26%);
+  padding: 1em;
+  border-radius: 0.5em;
+}
+
+.header h1 {
+  font-size: 1.3em;
+  font-weight: 500;
+  color: #fff;
+  margin: 0 0 0.5em;
+}
+
+.add_task {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  width: 100%;
+  margin: 0.5em 0 0;
+  border-bottom: 1px solid rgb(66, 66, 66);
+}
+
+.icon {
+  color: rgb(131, 130, 130);
+  font-weight: 100;
+}
+
+.add_task button {
+  background: transparent;
+  border: none;
+  color: rgb(131, 130, 130);
+  font-weight: 100;
+  font-size: 1.2em;
+  padding: 0;
+  margin: 0 0 0 1em;
+  cursor: pointer;
+}
+
+.icon:nth-child(3) {
+  margin-left: auto;
+}

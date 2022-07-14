@@ -47,9 +47,8 @@ const Login = () => {
 
     if (isSuccess || user) {
       router.push("/dashboard");
+      dispatch(reset());
     }
-
-    dispatch(reset());
   }, [user, isError, isLoading, isSuccess, message, dispatch]);
 
   const { email, password } = formData;
@@ -77,9 +76,9 @@ const Login = () => {
     }
   };
 
-  if (isLoading) {
-    return <Spinner />;
-  }
+  // if (isLoading) {
+  //   return <Spinner />;
+  // }
   return (
     <div className={styles.wrapper}>
       <Popup {...popupDetails} closePopup={closePopup} />
@@ -112,7 +111,7 @@ const Login = () => {
           </div>
           <div className={styles.form_input_ctn}>
             <button className={styles.submit} type="submit">
-              Login {isLoading ? <Loader ml={10} /> : null}
+              Login <span>{isLoading ? <Loader ml={10} /> : null}</span>
             </button>
           </div>
         </form>

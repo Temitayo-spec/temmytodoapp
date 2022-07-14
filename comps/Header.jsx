@@ -33,7 +33,14 @@ const Header = () => {
               <button className={styles.button}>Login</button>
             </Link>
           ) : (
-              <button onClick={()=> dispatch(logout())} className={styles.button}>Logout</button>
+            <Link href="/login">
+              <button
+                onClick={() => dispatch(logout())}
+                className={styles.button}
+              >
+                Logout
+              </button>
+            </Link>
           )}
         </div>
       </div>

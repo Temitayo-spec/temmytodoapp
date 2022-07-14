@@ -57,6 +57,9 @@
   cursor: pointer;
   transition: all 0.3s ease-in-out;
   text-align: left;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .submit:hover {

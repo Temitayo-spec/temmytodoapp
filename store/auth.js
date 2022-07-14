@@ -20,9 +20,8 @@ loadState();
 // Get user from backend
 export const getUser = createAsyncThunk("auth/me", async (_, thunkAPI) => {
   try {
-    token = thunkAPI.getState().auth.token;
-    const response = await authService.getUser(token);
-    return response.data;
+    const token = thunkAPI.getState().auth.user.token;
+    return await authService.getMe(token);
   } catch (error) {
     const message =
       (error.response && error.response.data && error.response.data.message) ||
@@ -82,6 +81,7 @@ export const authSlice = createSlice({
       "https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
     imageSrc: "",
     newUser: {},
+    userDetails: [],
   },
   reducers: {
     reset: (state) => {
@@ -130,6 +130,20 @@ export const authSlice = createSlice({
         state.message = action.payload;
         state.user = null;
       })
+      .addCase(getUser.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getUser.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.userDetails = action.payload;
+      })
+      .addCase(getUser.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+        state.userDetails = null;
+      })
       .addCase(logout.fulfilled, (state) => {
         state.user = null;
       });
@@ -145,5 +159,6 @@ export const {
 } = (state) => state.auth;
 export const selectImage = (state) => state.auth.image;
 export const selectImageSrc = (state) => state.auth.imageSrc;
+export const userDetails = (state) => state.auth.userDetails;
 export const { reset, setImage, setImageSrc, setNewUser } = authSlice.actions;
 export const authReducer = authSlice.reducer;

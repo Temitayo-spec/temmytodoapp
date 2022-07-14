@@ -15,19 +15,7 @@ p {
   line-height: 1.7;
 }
 
-ul {
-  list-style: none;
-  display: flex;
-  align-items: center;
-}
 
-li {
-  line-height: 2.2;
-}
-
-li a img {
-  margin-right: 5px;
-}
 
 h1,
 h2,
@@ -39,163 +27,11 @@ h3 {
   width: auto;
 }
 
-.wrapper {
-  background: #f2f2f2;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
-}
 
 .container {
   width: 100%;
   margin: 0 auto;
   text-align: center;
-}
-
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px 2em;
-  width: 90%;
-  margin: 0 auto;
-}
-
-.header ul li {
-  margin-left: 20px;
-}
-
-.header ul li a {
-  display: flex;
-  align-items: center;
-  font-weight: 600;
-}
-
-.header ul li a:hover {
-  color: #777;
-}
-
-.header ul li a svg {
-  margin-right: 5px;
-}
-
-.heading {
-  font-size: 2rem;
-  font-weight: 700;
-  margin: 1em auto;
-  padding: 0 20px;
-}
-
-.heading p {
-  color: #828282;
-}
-
-.goals {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 10px;
-}
-
-.form,
-.content {
-  width: 50%;
-  margin: 0 auto 1em;
-  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
-  padding: 2em;
-  border-radius: 10px;
-  animation: fadeIn 0.5s ease;
-}
-
-.form-group {
-  margin-bottom: 10px;
-  width: 100%;
-}
-
-.form-group input,
-.form-group textarea,
-.form-group select {
-  width: 100%;
-  padding: 1em;
-  border: 1px solid #e6e6e6;
-  border-radius: 5px;
-  margin-bottom: 10px;
-}
-
-.form-group label {
-  text-align: left;
-  display: block;
-  margin: 0 0 5px 3px;
-}
-
-.logout_btn {
-  padding: 10px 20px;
-  border: 1px solid #000;
-  border-radius: 5px;
-  font-size: 16px;
-  font-weight: 600;
-  cursor: pointer;
-  text-align: center;
-  appearance: button;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.logout_btn:hover {
-  background: #000;
-  color: white;
-}
-
-.back_btn {
-  padding: 10px 20px;
-  border: 1px solid #000;
-  border-radius: 5px;
-  font-size: 16px;
-  font-weight: 600;
-  cursor: pointer;
-  text-align: center;
-  appearance: button;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-left: 1em;
-  margin-top: 1em;
-}
-
-.back_btn:hover {
-  background: #000;
-  color: white;
-}
-
-.back_btn span {
-  margin-left: 5px;
-}
-
-.btn {
-  padding: 10px 20px;
-  border: 1px solid #000;
-  border-radius: 5px;
-  background: #000;
-  color: #fff;
-  font-size: 16px;
-  font-weight: 700;
-  cursor: pointer;
-  text-align: center;
-  appearance: button;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.btn-reverse {
-  background: #fff;
-  color: #000;
-}
-
-.btn-block {
-  width: 100%;
-}
-
-.btn:hover {
-  transform: scale(0.98);
 }
 
 .loadingSpinnerContainer {
