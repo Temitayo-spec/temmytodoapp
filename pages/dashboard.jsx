@@ -51,6 +51,7 @@ const dashboard = () => {
         severity: "error",
         message: "Network Error",
       }));
+      dispatch(reset());
     }
     if (isSuccess && tabs !== 4) {
       setPopupDetails((prevState) => ({
@@ -59,6 +60,7 @@ const dashboard = () => {
         severity: "success",
         message: userDetails?.message || "User Details Fetched",
       }));
+      dispatch(reset());
     }
 
     if (!user) {
@@ -98,15 +100,24 @@ const dashboard = () => {
               </div>
 
               <div className={styles.profile}>
-                <img
-                  src={
-                    userDetails &&
-                    `
+                {userDetails && userDetails?.data?.image !== "" ? (
+                  <img
+                    src={
+                      userDetails &&
+                      `
               data:image/jpeg;base64,${userDetails?.data?.image}
               `
-                  }
-                  alt="profile"
-                />
+                    }
+                    alt="profile"
+                  />
+                ) : (
+                  <img
+                    src="
+                  https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60
+                  "
+                    alt=""
+                  />
+                )}
               </div>
             </header>
           )}

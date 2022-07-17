@@ -46,6 +46,17 @@ const Login = () => {
       dispatch(reset());
     }
 
+    if (user.message === "User does not exist") {
+      setPopupDetails((prevState) => ({
+        ...prevState,
+        open: true,
+        severity: "error",
+        message: "User does not exist",
+      }));
+      user = {};
+      dispatch(reset());
+    }
+
     if (isSuccess && user?.success === true) {
       router.push("/dashboard");
       dispatch(reset());
