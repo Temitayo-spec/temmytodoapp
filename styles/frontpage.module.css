@@ -1,7 +1,6 @@
 .wrapper {
   width: 100vw;
   height: 100vh;
-  animation: slideIn forwards 1s ease-in-out;
   position: relative;
   z-index: 1;
   display: flex;
@@ -80,18 +79,13 @@
 }
 
 @media (max-width: 768px) {
+.wrapper{
+height: 100%;
+}
   .inner {
     grid-template-columns: 1fr;
   }
-}
-
-@keyframes slideIn {
-  0% {
-    opacity: 0;
-    transform: translateY(100%);
-  }
-  100% {
-    opacity: 1;
-    transform: translateX(0);
-  }
+.rhs {
+margin-top: 40px;
+} 
 }
