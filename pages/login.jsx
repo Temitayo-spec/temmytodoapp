@@ -46,7 +46,7 @@ const Login = () => {
       dispatch(reset());
     }
 
-    if (isSuccess || user) {
+    if (isSuccess && user?.success === true) {
       router.push("/dashboard");
       dispatch(reset());
     }
@@ -68,6 +68,7 @@ const Login = () => {
         severity: "error",
         message: "Fill in the necessary fields!",
       }));
+      dispatch(reset())
     } else {
       const loginData = {
         email,
