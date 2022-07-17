@@ -85,4 +85,7 @@ height: 100%;
   .inner {
     grid-template-columns: 1fr;
   }
+.rhs {
+margin-top: 40px;
+} 
 }
