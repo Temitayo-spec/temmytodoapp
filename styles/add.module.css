@@ -141,3 +141,55 @@
   background: hsl(300, 0%, 53%);
   margin-left: 2em;
 }
+
+.dropBox {
+  transition: all 0.6s ease;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1em;
+  margin-top: 30px;
+}
+
+.completed_btn {
+  padding: 0.5em 0.9em;
+  display: inline-block;
+  margin-right: 5px;
+  border: none;
+  border-radius: 20px;
+  color: white;
+  background: hsl(234, 17%, 12%);
+  cursor: pointer;
+  box-shadow: 0px 0px 1em rgba(0, 0, 0, 0.3);
+  font-weight: 700;
+}
+
+.update_todo {
+  padding: 0.5em 0.9em;
+  display: inline-block;
+  margin-left: 5px;
+  border: none;
+  border-radius: 20px;
+  color: white;
+  background: linear-gradient(120deg, #f6d365 0%, #fda085 100%);
+  cursor: pointer;
+  box-shadow: 0px 0px 1em rgba(0, 0, 0, 0.3);
+  font-weight: 700;
+}
+
+.delete_todo {
+  padding: 1em 0.9em;
+  border-radius: 20px;
+  color: white;
+  /* Red color */
+  background: tomato;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+  font-weight: 700;
+}
+
+@media (max-width: 768px) {
+  .main {
+    width: 80%;
+  }
+}

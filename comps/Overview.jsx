@@ -4,38 +4,29 @@ import AddTask from "./AddTask";
 import AddTaskModal from "./AddTaskModal";
 import TodoItem from "./TodoItem";
 
-const Overview = () => {
-  const item = [
-    {
-      id: 1,
-      text: "Figure out how to make Todolist black",
-      day: "Today",
-      completed: false,
-    },
-    {
-      id: 2,
-      text: "Buy oranges",
-      day: "Today",
-      completed: true,
-    },
-    {
-      id: 3,
-      text: "Swimming exercise",
-      day: "Tomorrow",
-      completed: false,
-    },
-  ];
+const Overview = ({ allTodos }) => {
   return (
     <>
-    <AddTaskModal />
+      <AddTaskModal />
       <div className={styles.wrapper}>
         <div className={styles.main}>
           <div className={styles.header}>
             <h1>Overview</h1>
           </div>
-          {item.map((item) => {
-            return <TodoItem key={item.id} {...item} />;
-          })}
+          {/* Convert object to array */}
+          {allTodos === [] ? (
+            <div className={styles.no_todos}>
+              <h2>No Todos</h2>
+              <p>Add a todo to get started</p>
+            </div>
+          ) : (
+            <>
+              {allTodos?.map((item) => (
+                <TodoItem key={item._id} {...item} />
+              ))}
+            </>
+          )}
+
           <AddTask />
         </div>
       </div>

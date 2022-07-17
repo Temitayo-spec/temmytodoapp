@@ -1,5 +1,11 @@
 .main {
   display: flex;
+  height: 100vh;
+}
+
+.wrapper {
+  overflow: hidden;
+  height: 100vh;
 }
 
 .heading,
@@ -9,6 +15,11 @@
   padding: 0 20px;
   margin: 1em;
   width: 100%;
+}
+
+.content {
+  overflow-y: auto;
+  height: 80%;
 }
 
 .content p {
@@ -34,4 +45,25 @@
   height: 100%;
   object-fit: cover;
   border-radius: 50%;
+}
+
+@media (max-width: 768px) {
+  .content {
+    font-size: 1.4rem;
+    margin: 0.5em 0;
+  }
+
+  .profile {
+    margin-left: 1em;
+  }
+
+  .wrapper,
+  .content,
+  .header {
+    width: 100%;
+  }
+
+  .main {
+    width: 100%;
+  }
 }

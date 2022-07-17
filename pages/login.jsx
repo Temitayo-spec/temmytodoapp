@@ -43,6 +43,7 @@ const Login = () => {
         severity: "error",
         message: "Network Error",
       }));
+      dispatch(reset());
     }
 
     if (isSuccess || user) {

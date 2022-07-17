@@ -1,14 +1,36 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { closeModal, isOpen, type } from "../store/modal";
+import { closeModal, isOpen, resetModal, type } from "../store/modal";
+import { updateTodos } from "../store/todos";
 import styles from "../styles/add.module.css";
+import Loader from "./Loader";
+import Popup from "./Popup";
 
 const UpdateTaskModal = () => {
   const open = useSelector(isOpen);
   const typeOf = useSelector(type);
   const dispatch = useDispatch();
-  const [image, setImage] = useState("");
+  const [image, setImage] = useState(todo?.image);
   const fileRef = useRef();
+  const isLoading = useSelector((state) => state.todo.isLoading);
+  const isSuccess = useSelector((state) => state.todo.isSuccess);
+  const isError = useSelector((state) => state.todo.isError);
+  const todo = useSelector((state) => state.todo.todos);
+  const [day, setDay] = useState("");
+  const [task, setTask] = useState("");
+
+  const [popupDetails, setPopupDetails] = useState({
+    open: false,
+    severity: "",
+    message: "",
+  });
+
+  const closePopup = () => {
+    setPopupDetails((prevState) => ({
+      ...prevState,
+      open: false,
+    }));
+  };
 
   const displayImage = () => {
     if (fileRef?.current?.files[0]) {
@@ -16,12 +38,49 @@ const UpdateTaskModal = () => {
     }
     return "/demo-pic.png";
   };
+
+  const todoId = useSelector((state) => state.todo.id);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append("image", fileRef.current.files[0]);
+    formData.append("todo", task);
+    formData.append("day", day);
+    dispatch(updateTodos({ todoId, formData }));
+  };
+
+  useEffect(() => {
+    if (isSuccess && typeOf === "update") {
+      setPopupDetails((prevState) => ({
+        ...prevState,
+        open: true,
+        severity: "success",
+        message: "Task Updated Successfully",
+      }));
+      dispatch(closeModal());
+      dispatch(resetModal());
+    }
+    if (isError && typeOf === "update") {
+      setPopupDetails((prevState) => ({
+        ...prevState,
+        open: true,
+        severity: "error",
+        message: "Network Error",
+      }));
+    }
+  }, [
+    isSuccess === true && typeOf === "update",
+    isError === true && typeOf === "update",
+  ]);
+
   return (
     <>
+      <Popup {...popupDetails} closePopup={closePopup} />
       {open && typeOf === "update" && (
         <div className={styles.wrapper}>
           <div className={styles.bg} />
-          <div className={styles.main}>
+          <form onSubmit={handleSubmit} className={styles.main}>
             <div className={styles.header}>
               <h1>Update Task</h1>
             </div>
@@ -60,13 +119,17 @@ const UpdateTaskModal = () => {
                 className={styles.input}
                 type="text"
                 placeholder="Enter task"
+                onChange={(e) => setTask(e.target.value)}
               />
 
               {/* Select day */}
 
               <div className={styles.select_day}>
                 <label htmlFor="select">Day</label>
-                <select className={styles.select}>
+                <select
+                  onChange={(e) => setDay(e.target.value)}
+                  className={styles.select}
+                >
                   <option disabled selected value="Select day">
                     Select day
                   </option>
@@ -75,7 +138,10 @@ const UpdateTaskModal = () => {
                 </select>
               </div>
               <div className={styles.button_ctn}>
-                <button className={styles.add_btn}>Add task</button>
+                <button type="submit" className={styles.add_btn}>
+                  Update task
+                  {isLoading ? <Loader ml={10} /> : null}
+                </button>
                 <button
                   onClick={() => dispatch(closeModal())}
                   className={styles.cancel_btn}
@@ -84,7 +150,7 @@ const UpdateTaskModal = () => {
                 </button>
               </div>
             </div>
-          </div>
+          </form>
         </div>
       )}
     </>

@@ -1,5 +1,4 @@
 .wrapper {
-  height: 70vh;
   width: 80%;
   margin: 0 auto;
   display: grid;
@@ -14,23 +13,24 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  margin: 0 auto;
+  margin: 0.2em auto;
 }
 
 .form_input_ctn input {
   width: 100%;
   padding: 1em;
   border-radius: 5px;
-  border: 1px solid hsl(237, 18%, 59%);
+  border: 1px solid #ccc;
 }
 
 .form_input_ctn label {
   font-size: 1.2em;
   line-height: 1.5;
-  color: hsl(237, 18%, 59%);
+  color: hsl(234, 17%, 12%);
 }
 
 .submit {
+  margin-top: 0.3em;
   width: 100%;
   padding: 0.7em 1em;
   border-radius: 5px;
@@ -46,6 +46,14 @@
 .submit:hover {
   background: linear-gradient(120deg, #dfc880 0%, #fda085 100%);
   color: #fff;
+}
+
+@media (max-width: 768px) {
+  .wrapper {
+    width: 100%;
+    height: 100%;
+    padding: 1em;
+  }
 }
 
 @keyframes zoomIn {

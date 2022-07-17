@@ -39,11 +39,21 @@ const getMe = async (token) => {
   return response.data;
 };
 
+const updateUser = async (id, userData, token) => {
+  const response = await axios.put(API_URL + "update/" + id, userData, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return response.data;
+};
+
 const authService = {
   registerUser: register,
   logout,
   login,
   getMe,
+  updateUser,
 };
 
 export default authService;

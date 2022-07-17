@@ -2,17 +2,19 @@ import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Completed from "../comps/Completed";
+import DeleteModal from "../comps/DeleteModal";
 import Header from "../comps/Header";
 import NextDay from "../comps/NextDay";
 import Overview from "../comps/Overview";
 import Popup from "../comps/Popup";
-import Profile from "../comps/profile";
+import Profile from "../comps/Profile";
 import Sidebar from "../comps/Sidebar";
 import Spinner from "../comps/Spinner";
 import Today from "../comps/Today";
+import TodosModal from "../comps/TodosModal";
 import UpdateTaskModal from "../comps/UpdateTaskModal";
-import { getUser, reset } from "../store/auth";
-import { getTodos } from "../store/todos";
+import { getUser } from "../store/auth";
+import { getTodos, reset } from "../store/todos";
 import styles from "../styles/dashboard.module.css";
 
 const dashboard = () => {
@@ -25,7 +27,8 @@ const dashboard = () => {
   const message = useSelector((state) => state.auth.message);
   const userDetails = useSelector((state) => state.auth.userDetails);
   const router = useRouter();
-  const todos = useSelector((state) => state.todo.todos);
+  const allTodos = useSelector((state) => state.todo.todos);
+  const succeed = useSelector((state) => state.todo.isSuccess);
 
   const [popupDetails, setPopupDetails] = useState({
     open: false,
@@ -41,9 +44,7 @@ const dashboard = () => {
   };
 
   useEffect(() => {
-    dispatch(getUser());
-    dispatch(getTodos());
-    if (isError) {
+    if (isError && tabs !== 4) {
       setPopupDetails((prevState) => ({
         ...prevState,
         open: true,
@@ -51,28 +52,37 @@ const dashboard = () => {
         message: "Network Error",
       }));
     }
-    if (isSuccess) {
+    if (isSuccess && tabs !== 4) {
       setPopupDetails((prevState) => ({
         ...prevState,
         open: true,
         severity: "success",
         message: userDetails?.message || "User Details Fetched",
       }));
-      console.log(userDetails);
     }
 
     if (!user) {
       router.push("/login");
     }
+
+    dispatch(getUser());
   }, [dispatch, isError, isSuccess, user, router]);
 
-  if (isLoading) {
+  useEffect(() => {
+    if (userDetails) {
+      dispatch(getTodos());
+    }
+  }, [dispatch, userDetails]);
+
+  if (isLoading && tabs !== 4) {
     return <Spinner />;
   }
 
   return (
     <div className={styles.wrapper}>
       <Popup {...popupDetails} closePopup={closePopup} />
+      <TodosModal />
+      <DeleteModal />
       <UpdateTaskModal />
       <Header />
       <main className={styles.main}>
@@ -100,11 +110,13 @@ const dashboard = () => {
               </div>
             </header>
           )}
-          {tabs === 0 && <Overview todos={todos} />}
-          {tabs === 1 && <Today todos={todos} />}
-          {tabs === 2 && <NextDay todos={todos} />}
-          {tabs === 3 && <Completed todos={todos} />}
-          {tabs === 4 && <Profile />}
+          <div className={styles.main_content}>
+            {tabs === 0 && <Overview allTodos={allTodos} />}
+            {tabs === 1 && <Today allTodos={allTodos} />}
+            {tabs === 2 && <NextDay allTodos={allTodos} />}
+            {tabs === 3 && <Completed allTodos={allTodos} />}
+            {tabs === 4 && <Profile />}
+          </div>
         </section>
       </main>
     </div>

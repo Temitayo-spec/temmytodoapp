@@ -4,7 +4,7 @@ import AddTask from "./AddTask";
 import AddTaskModal from "./AddTaskModal";
 import TodoItem from "./TodoItem";
 
-const Today = () => {
+const Today = ({ allTodos }) => {
   const item = [
     {
       id: 1,
@@ -27,21 +27,31 @@ const Today = () => {
   ];
   return (
     <>
-    <AddTaskModal />
+      <AddTaskModal />
       <div className={styles.wrapper}>
         <div className={styles.main}>
           <div className={styles.header}>
             <h1>Today Todos</h1>
           </div>
-          {item.map((item) => {
-            return (
-              <>
-                {item.day === "Today" ? (
-                  <TodoItem key={item.id} {...item} />
-                ) : null}
-              </>
-            );
-          })}
+          {allTodos === [] ? (
+            <div className={styles.no_todos}>
+              <h2>No Todos</h2>
+              <p>Add a todo to get started</p>
+            </div>
+          ) : (
+            <>
+              {allTodos?.map((item) => {
+                return (
+                  <>
+                    {item.day === "Today" ? (
+                      <TodoItem key={item.id} {...item} />
+                    ) : null}
+                  </>
+                );
+              })}
+            </>
+          )}
+
           <AddTask />
         </div>
       </div>

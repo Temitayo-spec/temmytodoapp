@@ -1,9 +1,11 @@
+import { useEffect } from "react";
 import { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { closeModal, isOpen, type } from "../store/modal";
+import { closeModal, isOpen, resetModal, type } from "../store/modal";
 import { createTodo } from "../store/todos";
 import styles from "../styles/add.module.css";
 import Loader from "./Loader";
+import Popup from "./Popup";
 
 const AddTaskModal = () => {
   const open = useSelector(isOpen);
@@ -16,6 +18,18 @@ const AddTaskModal = () => {
   const isLoading = useSelector((state) => state.todo.isLoading);
   const message = useSelector((state) => state.todo.message);
   const isError = useSelector((state) => state.todo.isError);
+  const [popupDetails, setPopupDetails] = useState({
+    open: false,
+    severity: "",
+    message: "",
+  });
+
+  const closePopup = () => {
+    setPopupDetails((prevState) => ({
+      ...prevState,
+      open: false,
+    }));
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -24,10 +38,31 @@ const AddTaskModal = () => {
     formData.append("todo", task);
     formData.append("day", day);
     dispatch(createTodo(formData));
-
-    isSuccess && dispatch(closeModal());
-    isError && setTask("");
   };
+
+  useEffect(() => {
+    if (isSuccess && typeOf === "add") {
+      setPopupDetails((prevState) => ({
+        ...prevState,
+        open: true,
+        severity: "success",
+        message: "Task Added Successfully",
+      }));
+      dispatch(closeModal());
+      dispatch(resetModal());
+    }
+    if (isError && typeOf === "add") {
+      setPopupDetails((prevState) => ({
+        ...prevState,
+        open: true,
+        severity: "error",
+        message: "Network Error",
+      }));
+    }
+  }, [
+    isSuccess === true && typeOf === "add",
+    isError === true && typeOf === "add",
+  ]);
 
   const [image, setImage] = useState("");
 
@@ -39,6 +74,7 @@ const AddTaskModal = () => {
   };
   return (
     <>
+      <Popup {...popupDetails} closePopup={closePopup} />
       {open && typeOf === "add" && (
         <div className={styles.wrapper}>
           <div className={styles.bg} />
@@ -101,10 +137,15 @@ const AddTaskModal = () => {
                 </select>
               </div>
               <div className={styles.button_ctn}>
-                <button type="submit" className={styles.add_btn}>
+                <button
+                  disabled={isLoading === true}
+                  type="submit"
+                  className={styles.add_btn}
+                >
                   Add task <span>{isLoading ? <Loader ml={10} /> : ""}</span>
                 </button>
                 <button
+                  disabled={isLoading === true}
                   onClick={() => dispatch(closeModal())}
                   className={styles.cancel_btn}
                 >

@@ -4,27 +4,7 @@ import AddTask from "./AddTask";
 import AddTaskModal from "./AddTaskModal";
 import TodoItem from "./TodoItem";
 
-const NextDay = () => {
-  const item = [
-    {
-      id: 1,
-      text: "Figure out how to make Todolist black",
-      day: "Today",
-      completed: false,
-    },
-    {
-      id: 2,
-      text: "Buy oranges",
-      day: "Today",
-      completed: true,
-    },
-    {
-      id: 3,
-      text: "Swimming exercise",
-      day: "Tomorrow",
-      completed: false,
-    },
-  ];
+const NextDay = ({ allTodos }) => {
   return (
     <>
       <AddTaskModal />
@@ -33,15 +13,24 @@ const NextDay = () => {
           <div className={styles.header}>
             <h1>Next 7 days</h1>
           </div>
-          {item.map((item) => {
-            return (
-              <>
-                {item.day === "Tomorrow" ? (
-                  <TodoItem key={item.id} {...item} />
-                ) : null}
-              </>
-            );
-          })}
+          {allTodos === [] ? (
+            <div className={styles.no_todos}>
+              <h2>No Todos</h2>
+              <p>Add a todo to get started</p>
+            </div>
+          ) : (
+            <>
+              {allTodos?.map((item) => {
+                return (
+                  <>
+                    {item.day === "Tomorrow" ? (
+                      <TodoItem key={item.id} {...item} />
+                    ) : null}
+                  </>
+                );
+              })}
+            </>
+          )}
           <AddTask />
         </div>
       </div>

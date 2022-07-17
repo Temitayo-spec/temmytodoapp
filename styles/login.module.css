@@ -8,9 +8,9 @@
 }
 
 .inner h1 {
-  font-size: 2.5em;
-  color: hsl(237, 18%, 59%);
-  margin: 0;
+  font-size: 2.2em;
+  font-weight: 300;
+  color: #fff;
   margin: 0.5em;
 }
 
@@ -37,13 +37,13 @@
   width: 100%;
   padding: 1em;
   border-radius: 5px;
-  border: 1px solid hsl(237, 18%, 59%);
+  border: 1px solid #ccc;
 }
 
 .form_input_ctn label {
   font-size: 1.2em;
   line-height: 1.5;
-  color: hsl(237, 18%, 59%);
+  color: hsl(234, 17%, 12%);
 }
 
 .submit {
@@ -75,5 +75,17 @@
   to {
     transform: scale(1);
     opacity: 1;
+  }
+}
+
+@media (max-width: 768px) {
+  .inner h1 {
+    text-align: center;
+    font-size: 1.8em;
+  }
+
+  .form {
+    width: 90%;
+    padding: 1em;
   }
 }

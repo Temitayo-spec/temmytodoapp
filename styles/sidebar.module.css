@@ -34,3 +34,20 @@
 .active {
   border-radius: 34px 0 0 34px;
 }
+
+@media (max-width: 768px) {
+  .wrapper {
+    position: fixed;
+    transform: translateX(-300px);
+    transition: transform 0.5s cubic-bezier(0.47, 0, 0.745, 0.715);
+    width: 260px;
+  }
+  .tab p {
+    font-weight: 400;
+    font-size: 18px;
+  }
+
+  .open {
+    transform: translateX(0px);
+  }
+}

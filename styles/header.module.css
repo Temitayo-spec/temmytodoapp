@@ -39,3 +39,48 @@
   background: #f6d365;
   box-shadow: 0 0.5em 1em rgba(0, 0, 0, 0.3);
 }
+
+@media (max-width: 768px) {
+  .inner h1 {
+    font-size: 1.5em;
+  }
+
+  .burger {
+    width: 28px;
+    height: 28px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transform: all 0.5s ease;
+  }
+
+  .one,
+  .two,
+  .three {
+    height: 3px;
+    width: 100%;
+    background-color: white;
+    border-radius: 40px;
+    margin: 2px;
+    transition: all 0.5s cubic-bezier(0.47, 0, 0.745, 0.715);
+  }
+
+  .active .one {
+    transform: translate(0px, 5px) rotate(45deg);
+  }
+
+  .active .two {
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.5s cubic-bezier(0.47, 0, 0.745, 0.715);
+  }
+
+  .active .three {
+    transform: translate(0px, -9px) rotate(-45deg);
+  }
+
+  .two {
+    width: 15px;
+  }
+}

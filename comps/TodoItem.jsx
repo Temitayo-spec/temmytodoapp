@@ -1,8 +1,17 @@
+import { useEffect } from "react";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { openModal } from "../store/modal";
+import {
+  reset,
+  setId,
+  setTodoDetails,
+  setTodoToCompleted,
+} from "../store/todos";
 import styles from "../styles/todoitem.module.css";
 import randomColors from "../utils/colors";
+import Loader from "./Loader";
 
 const TodoItem = ({ key, ...item }) => {
   const [color, setColor] = useState(randomColors());
@@ -10,7 +19,15 @@ const TodoItem = ({ key, ...item }) => {
   const dispatch = useDispatch();
   return (
     <div className={styles.wrapper}>
-      <div onClick={() => setSelected(!selected)} className={styles.dropDown}>
+      <div
+        onClick={() => {
+          setSelected(!selected);
+          dispatch(setId(item._id));
+          dispatch(openModal("view"));
+          dispatch(setTodoDetails({ ...item }));
+        }}
+        className={styles.dropDown}
+      >
         <div className={styles.small_circle_ctn}>
           <div
             style={{
@@ -21,22 +38,10 @@ const TodoItem = ({ key, ...item }) => {
         </div>
         <div className={styles.todo_item}>
           <div className={styles.todo_item_text}>
-            <p>{item.text}</p>
+            <p>{item.todo}</p>
           </div>
         </div>
         <div className={styles.day}>{item.day}</div>
-      </div>
-      <div className={`${styles.dropBox} ${selected ? styles.show : ""}`}>
-        <button type="button" className={styles.completed_btn}>
-          {item.completed ? "Completed" : "Mark as completed"}
-        </button>
-        <button
-          onClick={() => dispatch(openModal("update"))}
-          type="button"
-          className={styles.update_todo}
-        >
-          Update Todo
-        </button>
       </div>
     </div>
   );

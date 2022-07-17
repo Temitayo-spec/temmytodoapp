@@ -22,9 +22,10 @@ const getCompletedTodos = async (token) => {
 };
 
 // Set Todo to completed
-const setTodoToCompleted = async ({ goalId, text }, token) => {
+const setTodoToCompleted = async (todoId, token) => {
   const response = await axios.put(
-    API_URL + "completed/" + goalId,
+    API_URL + "completed/" + todoId,
+    {},
     {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -47,10 +48,10 @@ const createTodo = async (todoData, token) => {
 };
 
 //Update goals
-const updateTodo = async ({ goalId, text }, token) => {
+const updateTodo = async ({ todoId, formData }, token) => {
   const response = await axios.put(
-    API_URL + goalId,
-    { text },
+    API_URL + todoId,
+    formData,
     {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -63,6 +64,7 @@ const updateTodo = async ({ goalId, text }, token) => {
 
 //Delete goals
 const deleteTodo = async (todoId, token) => {
+  console.log(todoId);
   const response = await axios.delete(API_URL + todoId, {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -78,7 +80,7 @@ const todoService = {
   updateTodo,
   deleteTodo,
   getCompletedTodos,
-
+  setTodoToCompleted,
 };
 
 export default todoService;
