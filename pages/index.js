@@ -7,7 +7,7 @@ export default function Home() {
     return (
       <div className="container">
         <Head>
-          <title>Goalsetter App || MERN Stack</title>
+          <title>Todo List App || MERN Stack</title>
           <meta charSet="UTF-8" />
           <meta
             name="viewport"

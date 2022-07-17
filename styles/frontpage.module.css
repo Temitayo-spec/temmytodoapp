@@ -47,7 +47,7 @@
   text-decoration: line-through solid #fff;
 }
 
-.rhs img{
+.rhs img {
   width: 100%;
   object-fit: cover;
 }
@@ -77,6 +77,12 @@
   background-color: #f6d365;
   transition: all 0.5s ease-in-out;
   box-shadow: 0 0.5em 1em rgba(0, 0, 0, 0.2);
+}
+
+@media (max-width: 768px) {
+  .inner {
+    grid-template-columns: 1fr;
+  }
 }
 
 @keyframes slideIn {
