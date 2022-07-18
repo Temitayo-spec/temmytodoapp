@@ -5,7 +5,7 @@ import RegisterForm from "../comps/RegisterForm";
 import styles from "../styles/register.module.css";
 import Popup from "../comps/Popup";
 import { useDispatch, useSelector } from "react-redux";
-import { reset, selectImageSrc, setNewUser, signup } from "../store/auth";
+import { resetUser, selectImageSrc, setNewUser, signup } from "../store/auth";
 import { useRouter } from "next/router";
 import Spinner from "../comps/Spinner"
 
@@ -54,7 +54,7 @@ const register = () => {
       }));
     }
 
-    dispatch(reset());
+    dispatch(resetUser());
   }, [user, isError, isSuccess, dispatch]);
 
   const onSubmit = (e) => {
