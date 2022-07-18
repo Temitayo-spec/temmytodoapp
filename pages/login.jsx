@@ -5,7 +5,7 @@ import Header from "../comps/Header";
 import Loader from "../comps/Loader";
 import Popup from "../comps/Popup";
 import Spinner from "../comps/Spinner";
-import { login, reset } from "../store/auth";
+import { login, reset, resetUser, setUser } from "../store/auth";
 import styles from "../styles/login.module.css";
 
 const Login = () => {
@@ -32,7 +32,6 @@ const Login = () => {
   const isError = useSelector((state) => state.auth.isError);
   const isLoading = useSelector((state) => state.auth.isLoading);
   const isSuccess = useSelector((state) => state.auth.isSuccess);
-  const message = useSelector((state) => state.auth.message);
   const user = useSelector((state) => state.auth.user);
 
   useEffect(() => {
@@ -43,25 +42,36 @@ const Login = () => {
         severity: "error",
         message: "Network Error",
       }));
-      dispatch(reset());
+      dispatch(resetUser());
+      dispatch(setUser());
     }
 
-    if (user.message === "User does not exist") {
+    if (user?.message === "User does not exist") {
       setPopupDetails((prevState) => ({
         ...prevState,
         open: true,
         severity: "error",
         message: "User does not exist",
       }));
-      user = {};
-      dispatch(reset());
+      dispatch(setUser());
+      dispatch(resetUser());
+    }
+    if (user?.message === "Invalid credentials") {
+      setPopupDetails((prevState) => ({
+        ...prevState,
+        open: true,
+        severity: "error",
+        message: "Invalid Credentials",
+      }));
+      dispatch(setUser());
+      dispatch(resetUser());
     }
 
     if (isSuccess && user?.success === true) {
       router.push("/dashboard");
-      dispatch(reset());
+      dispatch(resetUser());
     }
-  }, [user, isError, isLoading, isSuccess, message, dispatch]);
+  }, [user, isError, isLoading, isSuccess, dispatch]);
 
   const { email, password } = formData;
   const onChange = (e) => {
@@ -79,7 +89,7 @@ const Login = () => {
         severity: "error",
         message: "Fill in the necessary fields!",
       }));
-      dispatch(reset())
+      dispatch(reset());
     } else {
       const loginData = {
         email,

@@ -70,7 +70,7 @@ export const updateUser = createAsyncThunk(
   async (userData, thunkAPI) => {
     try {
       const token = thunkAPI.getState().auth.user.token;
-      const id = thunkAPI.getState().auth.user.data._id;
+      const id = thunkAPI.getState().auth.user._id;
       return await authService.updateUser(id, userData, token);
     } catch (error) {
       const message =
@@ -104,7 +104,7 @@ export const authSlice = createSlice({
     userDetails: [],
   },
   reducers: {
-    reset: (state) => {
+    resetUser: (state) => {
       state.isLoading = false;
       state.isError = false;
       state.isSuccess = false;
@@ -119,6 +119,9 @@ export const authSlice = createSlice({
     setNewUser: (state, action) => {
       state.newUser[action.payload.field] = action.payload.value;
     },
+    setUser: (state)  => {
+      state.user = {}
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -194,5 +197,5 @@ export const {
 export const selectImage = (state) => state.auth.image;
 export const selectImageSrc = (state) => state.auth.imageSrc;
 export const userDetails = (state) => state.auth.userDetails;
-export const { reset, setImage, setImageSrc, setNewUser } = authSlice.actions;
+export const { resetUser, setImage, setImageSrc, setNewUser, setUser } = authSlice.actions;
 export const authReducer = authSlice.reducer;

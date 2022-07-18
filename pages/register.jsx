@@ -18,7 +18,6 @@ const register = () => {
   const isError = useSelector((state) => state.auth.isError);
   const isLoading = useSelector((state) => state.auth.isLoading);
   const isSuccess = useSelector((state) => state.auth.isSuccess);
-  const message = useSelector((state) => state.auth.message);
   const user = useSelector((state) => state.auth.user);
   const router = useRouter();
 
@@ -56,7 +55,7 @@ const register = () => {
     }
 
     dispatch(reset());
-  }, [user, isError, isSuccess, message, dispatch]);
+  }, [user, isError, isSuccess, dispatch]);
 
   const onSubmit = (e) => {
     e.preventDefault();

@@ -6,6 +6,7 @@ import {
 } from "react-icons/fa";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
+import { resetUser } from "../store/auth";
 import { openSidebar, setOpenSidebar } from "../store/modal";
 import styles from "../styles/sidebar.module.css";
 
@@ -47,6 +48,7 @@ const Sidebar = ({ setTabs, tabs }) => {
         </div>
         <div
           onClick={() => {
+            dispatch(resetUser())
             setTabs(4);
             dispatch(setOpenSidebar());
           }}

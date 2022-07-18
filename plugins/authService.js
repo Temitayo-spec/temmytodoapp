@@ -45,6 +45,7 @@ const updateUser = async (id, userData, token) => {
       Authorization: `Bearer ${token}`,
     },
   });
+
   return response.data;
 };
 

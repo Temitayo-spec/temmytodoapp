@@ -2,15 +2,31 @@ import React, { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "../styles/profile.module.css";
 import Loader from "./Loader";
-import { setImageSrc } from "../store/auth";
+import { resetUser, setImageSrc } from "../store/auth";
 import { getUser, userDetails, updateUser } from "../store/auth";
 import { useEffect } from "react";
+import Popup from "./Popup";
 
-const Profile = () => {
+const Profile = ({ tabs }) => {
   const dispatch = useDispatch();
+  const [popupDetails, setPopupDetails] = useState({
+    open: false,
+    severity: "",
+    message: "",
+  });
+
+  const closePopup = () => {
+    setPopupDetails((prevState) => ({
+      ...prevState,
+      open: false,
+    }));
+  };
 
   const user = useSelector(userDetails);
   const isLoading = useSelector((state) => state.auth.isLoading);
+  const isSuccess = useSelector((state) => state.auth.isSuccess);
+  const isError = useSelector((state) => state.auth.isError);
+
   const [image, setImage] = useState(user?.data?.image);
   const [input, setInput] = useState({
     name: user?.data?.name,
@@ -22,7 +38,7 @@ const Profile = () => {
     setInput({ ...input, [e.target.name]: e.target.value });
   };
   const fileRef = useRef();
-  const reset = () => {
+  const resetImage = () => {
     setImage(user?.data?.image);
   };
   const onFileInputChange = () => {
@@ -31,17 +47,37 @@ const Profile = () => {
     const reader = new FileReader();
     reader.onload = () => {
       setImage(reader.result);
-      console.log(reader.result)
+      console.log(reader.result);
     };
     reader.readAsDataURL(file);
   };
 
+  useEffect(() => {
+    if (isSuccess === true && tabs === 4) {
+      setPopupDetails((prevState) => ({
+        ...prevState,
+        open: true,
+        severity: "success",
+        message: userDetails?.message || "Updated Successfully",
+      }));
+      dispatch(getUser())
+    }
+
+    if (isError === true && tabs === 4) {
+      setPopupDetails((prevState) => ({
+        ...prevState,
+        open: true,
+        severity: "error",
+        message: "Network Error",
+      }));
+      dispatch(resetUser());
+    }
+  }, [isSuccess === true && tabs === 4, isError === true && tabs === 4]);
+
   const onSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData();
-    formData.append(
-      "image", fileRef.current.files[0]
-    );
+    formData.append("image", fileRef.current.files[0]);
     formData.append("name", input.name);
     formData.append("email", input.email);
     // formData.append("password", input.password);
@@ -50,9 +86,11 @@ const Profile = () => {
 
   return (
     <div className={styles.wrapper}>
+      <Popup {...popupDetails} closePopup={closePopup} />
+
       <h1>Profile</h1>
 
-      <div className={styles.inner}>
+      <form onSubmit={onSubmit} className={styles.inner}>
         <div className={styles.profile_picture_ctn}>
           <img
             src={
@@ -77,13 +115,17 @@ const Profile = () => {
               >
                 Change
               </button>
-              <button className={styles.reset} type="button" onClick={reset}>
+              <button
+                className={styles.reset}
+                type="button"
+                onClick={resetImage}
+              >
                 Remove
               </button>
             </div>
           </div>
         </div>
-        <form onSubmit={onSubmit} className={styles.form}>
+        <div className={styles.form}>
           <div className={styles.input_ctn}>
             <label htmlFor="name">Name</label>
             <input
@@ -119,8 +161,8 @@ const Profile = () => {
               Submit <span>{isLoading ? <Loader ml={10} /> : null}</span>
             </button>
           </div>
-        </form>
-      </div>
+        </div>
+      </form>
     </div>
   );
 };

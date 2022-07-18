@@ -13,7 +13,7 @@ import Spinner from "../comps/Spinner";
 import Today from "../comps/Today";
 import TodosModal from "../comps/TodosModal";
 import UpdateTaskModal from "../comps/UpdateTaskModal";
-import { getUser } from "../store/auth";
+import { getUser, resetUser } from "../store/auth";
 import { getTodos, reset } from "../store/todos";
 import styles from "../styles/dashboard.module.css";
 
@@ -42,39 +42,42 @@ const dashboard = () => {
       open: false,
     }));
   };
+  useEffect(() => {
+    dispatch(getUser());
+  }, []);
 
   useEffect(() => {
-    if (isError && tabs !== 4) {
+    if (!user) {
+      router.push("/login");
+    }
+    if (isError === true && tabs !== 4) {
       setPopupDetails((prevState) => ({
         ...prevState,
         open: true,
         severity: "error",
         message: "Network Error",
       }));
-      dispatch(reset());
     }
-    if (isSuccess && tabs !== 4) {
+    if (isSuccess === true && tabs !== 4) {
       setPopupDetails((prevState) => ({
         ...prevState,
         open: true,
         severity: "success",
         message: userDetails?.message || "User Details Fetched",
       }));
-      dispatch(reset());
     }
-
-    if (!user) {
-      router.push("/login");
-    }
-
-    dispatch(getUser());
-  }, [dispatch, isError, isSuccess, user, router]);
+  }, [
+    isError === true && tabs !== 4,
+    isSuccess === true && tabs !== 4,
+    user,
+    router,
+  ]);
 
   useEffect(() => {
     if (userDetails) {
       dispatch(getTodos());
     }
-  }, [dispatch, userDetails]);
+  }, [userDetails]);
 
   if (isLoading && tabs !== 4) {
     return <Spinner />;
@@ -126,7 +129,7 @@ const dashboard = () => {
             {tabs === 1 && <Today allTodos={allTodos} />}
             {tabs === 2 && <NextDay allTodos={allTodos} />}
             {tabs === 3 && <Completed allTodos={allTodos} />}
-            {tabs === 4 && <Profile />}
+            {tabs === 4 && <Profile tabs={tabs} />}
           </div>
         </section>
       </main>
