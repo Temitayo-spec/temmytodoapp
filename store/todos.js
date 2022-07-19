@@ -107,7 +107,6 @@ export const setTodoToCompleted = createAsyncThunk(
   async (todoId, thunkAPI) => {
     try {
       const token = thunkAPI.getState().auth.user.token;
-      console.log(token, todoId);
       return await todoService.setTodoToCompleted(todoId, token);
     } catch (error) {
       const message =
@@ -228,7 +227,6 @@ export const todoSlice = createSlice({
       .addCase(setTodoToCompleted.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
-        console.log(state.todos, action.payload);
         // Replacing todo with new todo
         state.todos = state.todos.map((todo) => {
           if (todo._id === action.payload.data._id) {
@@ -236,6 +234,7 @@ export const todoSlice = createSlice({
           }
           return todo;
         });
+        state.todoDetails = action.payload.data;
       })
       .addCase(setTodoToCompleted.rejected, (state, action) => {
         state.isLoading = false;

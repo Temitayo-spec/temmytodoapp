@@ -11,7 +11,6 @@ import {
 } from "../store/todos";
 import styles from "../styles/todoitem.module.css";
 import randomColors from "../utils/colors";
-import Loader from "./Loader";
 
 const TodoItem = ({ key, ...item }) => {
   const [color, setColor] = useState(randomColors());

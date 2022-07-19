@@ -4,7 +4,6 @@ import { closeModal, isOpen, openModal, type } from "../store/modal";
 import { reset, setTodoToCompleted } from "../store/todos";
 import styles from "../styles/add.module.css";
 import Loader from "./Loader";
-import Popup from "./Popup";
 
 const TodosModal = () => {
   const open = useSelector(isOpen);
@@ -20,6 +19,7 @@ const TodosModal = () => {
       setIsLoad(false);
     }
   }, [isLoading === false]);
+  console.log(todoDetails)
 
   return (
     <>
@@ -35,17 +35,25 @@ const TodosModal = () => {
                 <div className={styles.img}>
                   {todoDetails?.image.data !== "" ? (
                     <img
-                      src={`data:image/jpeg;base64,${todoDetails?.image?.data}`}
+                      src={`${
+                        todoDetails?.image?.contentType === "image/png"
+                          ? "data:image/png"
+                          : "data:image/jpeg"
+                      };base64,${todoDetails?.image?.data}`}
                       alt="add_image"
                     />
                   ) : (
                     <p>You can add an image to your task by updating Todo.</p>
                   )}
                 </div>
-                <p style={{
+                <p
+                  style={{
                     fontSize: "18px",
                     fontWeight: "600",
-                }}>{todoDetails.todo}</p>
+                  }}
+                >
+                  {todoDetails.todo}
+                </p>
                 <div className={styles.dropBox}>
                   <button
                     onClick={() => {
