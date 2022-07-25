@@ -22,6 +22,8 @@ const RegisterForm = ({ setPage }) => {
       open: false,
     }));
   };
+
+  const disabled = !newUser?.name || !newUser?.email || !newUser?.password;
   return (
     <div className={styles.wrapper}>
       <Popup {...popupDetails} closePopup={closePopup} />
@@ -92,7 +94,10 @@ const RegisterForm = ({ setPage }) => {
       </div>
 
       <button
-        disabled={!newUser?.name || !newUser?.email || !newUser?.password}
+        disabled={disabled}
+        style={{
+          background: disabled ? "#ccc" : "",
+        }}
         onClick={() => {
           if (newUser?.password === confirmPassword) {
             setPage(2);

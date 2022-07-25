@@ -11,7 +11,7 @@ const NextDay = ({ allTodos }) => {
       <div className={styles.wrapper}>
         <div className={styles.main}>
           <div className={styles.header}>
-            <h1>Next 7 days</h1>
+            <h1>Tomorrow</h1>
           </div>
           {allTodos === [] ? (
             <div className={styles.no_todos}>
@@ -20,11 +20,11 @@ const NextDay = ({ allTodos }) => {
             </div>
           ) : (
             <>
-              {allTodos?.map((item) => {
+              {allTodos?.map((item, key) => {
                 return (
                   <>
                     {item.day === "Tomorrow" ? (
-                      <TodoItem key={item.id} {...item} />
+                      <TodoItem key={key} {...item} />
                     ) : null}
                   </>
                 );

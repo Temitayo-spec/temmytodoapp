@@ -40,11 +40,11 @@ const Today = ({ allTodos }) => {
             </div>
           ) : (
             <>
-              {allTodos?.map((item) => {
+              {allTodos?.map((item, key) => {
                 return (
                   <>
                     {item.day === "Today" ? (
-                      <TodoItem key={item.id} {...item} />
+                      <TodoItem key={key} {...item} />
                     ) : null}
                   </>
                 );

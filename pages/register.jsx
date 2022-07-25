@@ -7,7 +7,7 @@ import Popup from "../comps/Popup";
 import { useDispatch, useSelector } from "react-redux";
 import { resetUser, selectImageSrc, setNewUser, signup } from "../store/auth";
 import { useRouter } from "next/router";
-import Spinner from "../comps/Spinner"
+import Spinner from "../comps/Spinner";
 
 const register = () => {
   const image = useSelector(selectImageSrc);
@@ -42,9 +42,10 @@ const register = () => {
         severity: "error",
         message: "Network Error",
       }));
+      dispatch(resetUser());
     }
 
-    if (isSuccess || user) {
+    if (isSuccess && user?.success === true) {
       router.push("/dashboard");
       setPopupDetails((prevState) => ({
         ...prevState,
@@ -52,9 +53,8 @@ const register = () => {
         severity: "success",
         message: "Successfully registered",
       }));
+      dispatch(resetUser());
     }
-
-    dispatch(resetUser());
   }, [user, isError, isSuccess, dispatch]);
 
   const onSubmit = (e) => {

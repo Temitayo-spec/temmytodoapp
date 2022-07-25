@@ -21,8 +21,8 @@ const Overview = ({ allTodos }) => {
             </div>
           ) : (
             <>
-              {allTodos?.map((item) => (
-                <TodoItem key={item._id} {...item} />
+              {allTodos?.map((item, key) => (
+                <TodoItem key={key} {...item} />
               ))}
             </>
           )}

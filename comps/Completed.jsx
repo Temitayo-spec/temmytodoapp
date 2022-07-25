@@ -20,15 +20,11 @@ const Completed = ({ allTodos }) => {
             </div>
           ) : (
             <>
-              {allTodos?.map((item) => {
+              {allTodos?.map((item, key) => {
                 return (
                   <>
                     <>
-                      {item.completed ? (
-                        <TodoItem key={item.id} {...item} />
-                      ) : (
-                        null
-                      )}
+                      {item.completed ? <TodoItem key={key} {...item} /> : null}
                     </>
                   </>
                 );
