@@ -1,4 +1,4 @@
-# temmytodoapp
+# Todo List App
 A Fullsatck TodoApp with User Authentication and Authorization built with Nextjs and Redux toolkit for state management✨🎉
 
 ## Things users can do
